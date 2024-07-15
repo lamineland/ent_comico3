@@ -8,6 +8,7 @@ use App\Models\Membre;
 use Faker\Provider\ar_EG\Text;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -28,23 +29,27 @@ class MembreResource extends Resource
         // make input for this 'telephone', 'cite', 'etat', 'fonction', 'numero_villa', 'detail_logement', 'date_amenagement', 'user_id',
         return $form
             ->schema([
-                TextInput::make('prenom')
+                Fieldset::make('User')
+                ->relationship('user')
+                ->schema([
+                    TextInput::make('prenom')
                             ->required()
                             ->hiddenLabel()
                             ->placeholder('Prénom')
                             ->minLength(2)
                             ->maxLength(155),
-                TextInput::make('nom')
+                    TextInput::make('nom')
                             ->required()
                             ->hiddenLabel()
                             ->placeholder('Nom')
                             ->minLength(2)
                             ->maxLength(85),
-                TextInput::make('email')
+                    TextInput::make('email')
                             ->required()
                             ->email()
                             ->hiddenLabel()
                             ->placeholder('Email'),
+                ]),
                 Textinput::make('telephone')
                             ->required()
                             ->placeholder('Téléphone: 99 999 99 99')
